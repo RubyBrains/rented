@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150927113348) do
+ActiveRecord::Schema.define(version: 20150929202704) do
 
   create_table "place_images", force: :cascade do |t|
     t.integer  "place_id"
@@ -41,6 +41,19 @@ ActiveRecord::Schema.define(version: 20150927113348) do
   end
 
   add_index "places", ["user_id"], name: "index_places_on_user_id"
+
+  create_table "searches", force: :cascade do |t|
+    t.string   "country_name"
+    t.string   "state_name"
+    t.string   "city_name"
+    t.string   "property"
+    t.string   "occupancy"
+    t.string   "bed_room"
+    t.integer  "max_price"
+    t.integer  "min_price"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false

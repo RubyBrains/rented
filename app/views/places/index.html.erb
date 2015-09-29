@@ -194,14 +194,17 @@ ul li{
 		</header>
 
 	    <div id="dashboard">
-	      <div id="flatSearched">
-	      <% @places.each do |place| %>
-	        <div class="flatBox">
-	          <p><%= place.title %></p>
-	          <p><%= place.description %></p>
-	        </div>
-	      <% end %>  
-	      </div>
+	    	<div>
+	    	<%= link_to "Advance Search", new_search_path, class: "btn btn-lg btn-danger" %>
+	    	</div>
+		    <div id="flatSearched">
+			    <% @places.each do |place| %>
+			        <div class="flatBox">
+			          <p><%= place.title %></p>
+			          <p><%= place.description %></p>
+			        </div>
+			    <% end %>  
+		    </div>
 	      <div id="map" style=""></div>
 	    </div>
 

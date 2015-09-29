@@ -1,0 +1,19 @@
+%h1 Advance Search
+= form_for @search do |s| 
+	%p= s.text_field :country_name, placeholder: "Country",class: "form-control"
+	%p= s.text_field :state_name, placeholder: "State",class: "form-control"
+	%p= s.text_field :city_name, placeholder: "City",class: "form-control"
+
+	%p
+		= s.label :property
+		= s.select :property, options_for_select(@properties), include_blank: true,class: "form-control" 
+	%p
+		= s.label :occupancy
+		= s.select :occupancy, options_for_select(@occupancies), include_blank: true ,class: "form-control"
+	%p
+		= s.label :bed_room
+		= s.select :bed_room, options_for_select(@bed_rooms), include_blank: true,class: "form-control"
+	%p= s.text_field :max_price, placeholder: "Max Price", size: 10,class: "form-control"
+	%p= s.text_field :min_price, placeholder: "Min Price", size: 10,class: "form-control"
+	%p= s.submit "Search", class: "btn btn-md btn-danger"
+		  
