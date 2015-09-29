@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Rent your flat</title>
+  
+  
+	<style type="text/css">
+  header{
+    position: fixed;
+    top:0;
+    left: 0;  
+    width: 100%;
+    height: 60px;
+    background: #4a5f70;
+
+    box-shadow: 0 0 15px #000 ;
+  }
+
+  #logoCont{
+    background: #000;
+    width: 150px;
+    height: 50px;
+    float: left;
+    margin: 5px 0 0 50px;
+  }
+
+  #searchBox{
+    float: left;
+    margin: 8px 0 0 30px; 
+    background: #5e717f;
+
+    background: -webkit-linear-gradient(left, #5e717f , #4a5f70); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(left, #5e717f, #4a5f70); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(left, #5e717f, #4a5f70); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(left, #5e717f , #4a5f70); /* Standard syntax */
+  }
+  #searchBox input{
+    border: none;
+    height: 35px;
+    width: 610px;
+    color:#fff;
+    outline: none;
+    padding: 5px 15px ;
+    border-radius: 7px;
+    background: none;
+    font-size: 30px;
+
+    border-radius: 5px;
+  }
+  #salutation{
+    float: left;
+    margin: 20px 50px 0 0;
+    color: #000;
+    font-size: 25px;
+  }
+
+  #salutation ul{
+    margin:0 0 20px 50px;
+  }
+
+  a{
+    text-decoration: none;
+    color:#fff;
+  }
+  a:hover{
+    font-weight: bold;
+    text-decoration: none;
+  }
+  #map {
+    height: 85%;
+    width: 40%;
+    position: relative;
+    float: right;
+    margin: 5px 10px 0 0; 
+    border-radius: 0 7px 0 0;
+  }
+
+#type-selector {
+  color: #fff;
+  background-color: #4d90fe;
+  padding: 5px 11px 0px 11px;
+}
+
+#type-selector label {
+  font-family: Roboto;
+  font-size: 13px;
+  font-weight: 300;
+}
+
+::-webkit-input-placeholder {
+   color: #fff;
+}
+
+:-moz-placeholder { /* Firefox 18- */
+   color: #fff;  
+}
+
+::-moz-placeholder {  /* Firefox 19+ */
+   color: #fff;  
+}
+
+:-ms-input-placeholder {  
+   color: #fff;  
+}
+
+#dashboard{
+  width: 100%;
+  height: 100%;
+  top:65px;
+  position: fixed;
+  background: #ebf2f6;
+  left: 0;
+  word-wrap: break-word;
+}
+#flatSearched{
+  width: 58%;
+  height: 85%;
+  float: left;
+  position: absolute;
+  overflow-y: scroll;
+
+  margin: 5px 0 0 10px;
+  border-radius: 7px 0 0 0;
+  background: #f7f6f4;
+}
+
+.flatBox{
+  background: #aaa;
+  width: 45%;
+  height: 250px;
+  position: relative;
+  float: left;
+  border-radius: 7px 7px 0 0;
+  cursor: pointer;
+  margin:15px 0 10px 20px;
+}
+.flatBox:hover{
+  box-shadow: 0 0 15px 1px #000;
+}
+
+.container {
+  position: relative;
+}
+#clip {
+  position: absolute;
+  clip: rect(0, 100px, 200px, 0);
+  /* clip: shape(top, right, bottom, left); NB 'rect' is the only available option */
+}
+
+footer {
+  position: fixed;
+  bottom: -10px; 
+  color: #000;
+  width: 100%;
+}
+
+footer a{
+  font-size: 17px;
+  color: #000;
+  text-decoration: none !important;
+}
+
+ul{
+  list-style: none;
+  color: #233e54;
+}
+
+ul li{
+  display: inline;
+}
+
+
+	</style>
+</head>
+<body>
+	<div id="container">
+		<header>
+			
+			<div id="logoCont">
+			<%= link_to "LOGO", root_path %>
+			</div>
+			
+			<div id="searchBox">
+          
+          		<input id="pac-input" class="controls" type="text" placeholder="Search for flats on rent ">
+			</div>
+			<div id="salutation">
+
+		        <ul> 
+		            <a href="#"><li>Rent Your Flat</li></a> | 
+		            <a href="#"><li>Hello <%= current_user.name if user_signed_in? %></li></a>
+		        </ul>
+			</div>
+		</header>
+
+	    <div id="dashboard">
+	      <div id="flatSearched">
+	      <% @places.each do |place| %>
+	        <div class="flatBox">
+	          <p><%= place.title %></p>
+	          <p><%= place.description %></p>
+	        </div>
+	      <% end %>  
+	      </div>
+	      <div id="map" style=""></div>
+	    </div>
+
+  	</div>
+    <footer>
+      <ul>
+        <li>&copy; Rented.com | </li>
+        <li><a href="#">About Us</a> | </li> 
+        <li><a href="#">Contact Us</a> | </li> 
+        <li><a href="#">Terms &amp; Conditions</a> | </li> 
+      </ul>
+    </footer>
+	 <script>
+
+	function initAutocomplete() {
+
+		function _(inp) {
+			return document.getElementById(inp);
+		}
+		  var map = new google.maps.Map(_('map'), {
+		    center: {lat: 21, lng: 82},
+		    zoom: 4,
+		    mapTypeId: google.maps.MapTypeId.ROADMAP
+		  });
+
+		  // Create the search box and link it to the UI element.
+		  var input = _('pac-input');
+		  var searchBox = new google.maps.places.SearchBox(input);
+		  //map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+		  // Bias the SearchBox results towards current map's viewport.
+		  map.addListener('bounds_changed', function() {
+		    searchBox.setBounds(map.getBounds());
+		  });
+
+		  var markers = [];
+		  // [START region_getplaces]
+		  // Listen for the event fired when the user selects a prediction and retrieve
+		  // more details for that place.
+		  searchBox.addListener('places_changed', function() {
+		    var places = searchBox.getPlaces();
+
+		    if (places.length == 0) {
+		      return;
+		    }
+
+		    // Clear out the old markers.
+		    markers.forEach(function(marker) {
+		      marker.setMap(null);
+		    });
+		    markers = [];
+
+		    // For each place, get the icon, name and location.
+		    var bounds = new google.maps.LatLngBounds();
+		    places.forEach(function(place) {
+		      var icon = {
+		        url: place.icon,
+		        size: new google.maps.Size(71, 71),
+		        origin: new google.maps.Point(0, 0),
+		        anchor: new google.maps.Point(17, 34),
+		        scaledSize: new google.maps.Size(25, 25)
+		      };
+
+		      // Create a marker for each place.
+		      markers.push(new google.maps.Marker({
+		        map: map,
+		        icon: icon,
+		        title: place.name,
+		        position: place.geometry.location
+		      }));
+
+		      if (place.geometry.viewport) {
+		        // Only geocodes have viewport.
+		        bounds.union(place.geometry.viewport);
+		      } else {
+		        bounds.extend(place.geometry.location);
+		      }
+		    });
+		    map.fitBounds(bounds);
+		  });
+		  // [END region_getplaces]
+		}
+	</script>
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDusQAmGtEwiKnZ1QQfJI4gLaivOwhv0QA&libraries=places&callback=initAutocomplete"
+         async defer></script>
+</body>
+</html>

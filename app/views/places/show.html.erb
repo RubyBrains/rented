@@ -1,0 +1,59 @@
+<h1><%= @place.title %></h1>
+
+<div id="tabs" class="tabs_box">
+  <ul class="height_adjust">
+    <li><a href="#tabs-1">Photo</a></li>
+    <li><a href="#tabs-2">Place Details</a></li>
+    <li><a href="#tabs-3">Rental Details</a></li>
+    <li><a href="#tabs-4">Address Info</a></li>
+  </ul>
+  <div id="tabs-1">
+    <div class="main_photo">
+      <% @place.place_images.each do |p| %>
+      	<%= image_tag p.photo.url %>
+      <% end %>	
+    </div>
+
+  </div>
+  <div id="tabs-2">
+    <div id="description">
+      <p><b>Descripton:</b> <br><%= @place.description %></p>
+    </div>
+
+    <div class="show_details show">
+      <ul id="show_details">
+        <li><b>Accommodates:</b> <%= @place.max_occupancy %></li>
+        <li><b>Bedrooms:</b> <%= @place.bedrooms %></li>
+      </ul>
+    </div>
+  </div>
+
+  <div id="tabs-3">
+    <div class="show_rental_details show">
+      
+      <h4>Special Instructions:</h4>
+      <p class="center_me"><%= @place.special_info %></p>
+    </div>
+  </div>
+
+  <div id="tabs-4">
+    <div class="show_address show clear_me">
+      <ul id="address">
+        <li><b>Address:</b> 
+        <li><b>City:</b> <%= @place.city %></li>  
+        <li><b>State:</b> <%= @place.state %></li>
+        <li><b>Zip Code:</b> <%= @place.zip %></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+

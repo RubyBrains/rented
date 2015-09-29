@@ -1,0 +1,134 @@
+<div class= "container">
+  <div class="col-md-4, col-md-offset-2">
+    <div id="box1" class="boxed blurred-bg tinted">
+      <div class="content">
+        <h1>Rent you Flat</h1>
+
+        <hr>
+        <%= simple_form_for @place, html: { multipart: true } do |f| %>
+          <div>
+            <% @place.errors.full_messages.each do |error| %>
+              <li><%= error %></li>
+            <% end %>
+          </div>
+          <div id="about_your_place" class="new_form_box">
+
+            <label for="title">Title</label><br>
+            <input type="text" id="title" name="place[title]" value="<%= @place.title %>" class="form-control">
+            <br>
+
+            <label for="description">Description</label><br>
+            <textarea id="description>" name="place[description]" class="form-control">
+              <%= @place.description %>
+            </textarea>
+            <br>
+
+            <label for="property_type">Property Type</label>
+            <% property_type_array = ("apartment, house, bed&breakfast, loft, cabin, villa castle, dorm, treehouse, boat, plane, parking space, car, van, camper, igloo, lighthouse, yurt, tipi, cave, island, chalet, earth-house, hut, train, tent, other").split(", ") %>
+            <select id="property_type" 
+                    name="place[property_type]" 
+                    class="selectpicker select-block">
+              <% property_type_array.each do |prp| %>
+                <option value="<%= prp %>" <%= 'selected' if @place.property_type == prp %>>
+                  <%= prp.capitalize %>
+                </option>
+              <% end %>
+            </select>
+            <br>
+
+            <label for="accommodates">Accommodates</label>
+            <select id="accommodates" 
+                    name="place[max_occupancy]" 
+                    class="selectpicker select-block">
+              <% 15.times do |num| %>
+                <option value="<%= num+1 %>" <%= 'selected' if @place.max_occupancy == '#{num+1}' %>>
+                    <%= num+1 %>
+                </option>
+              <% end %>
+              <option value="16">16+</option>
+            </select>
+            <br>
+
+           
+            <label for="bedrooms">Bedrooms</label>
+            <select id="bedrooms" 
+                    name="place[bedrooms]" 
+                    class="selectpicker select-block">
+              <% 10.times do |num| %>
+                <option value="<%= num+1 %>"<%= 'selected' if @place.bedrooms == '#{num+1}'%>>
+                  <%= num+1 %>
+                </option>
+              <% end %>
+            </select>
+            <br>
+          </div>
+
+            <label for="country">Country</label>
+            <input type="text" 
+                   id="country" 
+                   name="place[country]"
+                   value="<%= @place.country %>" class="form-control">   
+            <br>
+
+           
+
+            <label for="city">City</label>
+            <input type="text" 
+                   id="city" 
+                   name="place[city]"
+                   value="<%= @place.city %>" class="form-control">   
+            <br>
+
+            <label for="state">State</label>
+            <input type="text" 
+                   id="state" 
+                   name="place[state]"
+                   value="<%= @place.state %>" class="form-control">   
+            <br>
+
+            <label for="zip">Zip Code</label>
+            <input type="text" 
+                   id="zip" 
+                   name="place[zip]"
+                   value="<%= @place.zip %>" class="form-control"> 
+            <br>      
+           
+          
+
+          <div id="rental_options" class="new_form_box">
+            
+            <label for="month_price">Price Per Month</label><br>
+            <input type="text"
+                   id="month_price"
+                   name="place[month_price]"
+                   value="<%= @place.month_price %>" class="form-control">
+                   <br>
+
+            
+
+            <label for="special_info">Any Special Instructions?</label><br>
+            <textarea id="special_info" name="place[special_info]" class="form-control">
+              <%= @place.special_info %>
+            </textarea>
+            <br>
+          </div>
+          <br>
+          <%= f.simple_fields_for :place_images do |builder| %>
+             
+            <% if builder.object.new_record? %>
+              <p>
+              
+              <%= builder.file_field "photos[]", multiple: true , class: "form-control" %>
+
+              </p>
+              <% end %>
+          <% end %>  
+
+          
+          <br>
+          <input id="submit_listing" type="submit" value="Create Listing" class="btn btn-primary float_left">
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

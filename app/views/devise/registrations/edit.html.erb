@@ -1,0 +1,105 @@
+<div class= "container">
+  <div class="col-md-6 col-md-offset-3">
+    <div id="box1" class="boxed blurred-bg tinted">
+      <div class="content">
+        <h1>Edit <%= resource_name.to_s.humanize %></h1>
+          <p>Would you like to make changes?</p>
+          <hr></hr>
+        <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { autocomplete: 'off' }) do |f| %>
+          <%= f.error_notification %>
+
+          <p>
+
+            <div class="input-group input-group-lg">
+              <span class="input-group-addon">
+                <span class="glyphicon glyphicon-user"></span>
+              </span>
+              <%= f.text_field :name, required: true, autofocus: true,  class: "form-control" %>
+            </div>
+
+          </p>
+
+          <p>
+
+            <div class="input-group input-group-lg">
+              <span class="input-group-addon">
+                <span class="glyphicon glyphicon-envelope"></span>
+              </span>
+              <%= f.email_field :email, required: true, autofocus: true,class: "form-control" %>
+            </div>
+
+          </p>
+          <div class="form-actions"> 
+            <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+              <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
+            <% end %>
+          </div> 
+          <p>
+
+            <div class="input-group input-group-lg">
+              <span class="input-group-addon">
+                <span class="glyphicon glyphicon-lock"></span>
+              </span>
+              <%= f.password_field :password, autocomplete: "off", hint: "leave it blank if you don't want to change it", required: false, placeholder: "Password",  class: "form-control"%>
+            </div>
+            <p>Leave it blank if you don't want to change it</p>
+
+          </p>
+
+          <p>
+
+            <div class="input-group input-group-lg">
+              <span class="input-group-addon">
+                <span class="glyphicon glyphicon-lock"></span>
+              </span>
+              <%= f.password_field :password_confirmation, placeholder: "Confirm Password", required: false, class: "form-control" %>
+            </div>
+
+          </p>
+          <p>
+
+            <div class="input-group input-group-lg">
+              <span class="input-group-addon">
+                <span class="glyphicon glyphicon-lock"></span>
+              </span>
+              <%= f.password_field :current_password, hint: "We need your current password to confirm your changes",placeholder: "Current Password", required: true, class: "form-control" %>
+            </div>
+            <p>We need your current password to confirm your changes</p>
+          </p>
+          <p>
+
+            <div class="input-group input-group-lg">
+              <span class="input-group-addon">
+                <span class="glyphicon glyphicon-phone"></span>
+              </span>
+              <%= f.text_field :phone, required: true, autofocus: true, class: "form-control" %>
+            </div>
+
+          </p>
+
+          <p>
+
+            <div class="input-group input-group-lg">
+              <span class="input-group-addon">
+                <span class="glyphicon glyphicon-home"></span>
+              </span>
+              <%= f.text_field :address, required: true, autofocus: true,class: "form-control" %>
+            </div>
+
+          </p>
+          </br>
+          <p>
+            <div class="form-actions">
+              <%= f.button :submit, "Sign Up", class: "btn btn-lg btn-primary" %><br>
+            </div>
+          </p>
+          <hr>
+          <div>
+            <%= link_to "Back", root_path, class: "btn btn-default" %>
+          </div>
+      
+        <% end %>  
+      </div>
+    </div>
+  </div>  
+</div>

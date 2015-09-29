@@ -1,0 +1,50 @@
+<div class="container">
+  <div class="col-md-6">    
+    <div id="box1" class="boxed blurred-bg tinted">  
+      <div class="panel" style="background:none;">
+        <div class="panel-heading">
+          <h2 style="text-align: center">Log in</h2>
+        </div>
+        <div class="panel-body">
+          <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+            <p>
+
+              <div class="input-group input-group-lg">
+                <span class="input-group-addon">
+                  <span class="glyphicon glyphicon-envelope"></span>
+                </span>
+                <%= f.email_field :email, autofocus: true, placeholder: "Email", class: "form-control form-input" %>
+              </div>
+
+            </p>
+
+            <p>
+              <div class="input-group input-group-lg">
+                <span class="input-group-addon">
+                  <span class="glyphicon glyphicon-lock"></span>
+                </span>
+                
+                <%= f.password_field :password, autocomplete: "off", placeholder: "Password", class: "form-control form-input" %>
+              </div>
+            </p>
+
+            <% if devise_mapping.rememberable? -%>
+              <p>
+                <%= f.check_box :remember_me %>
+                <%= f.label :remember_me %>
+              </p>
+            <% end -%>
+
+            <p>
+              <%= f.submit "Log in", class: "btn btn-primary" %>
+            </p>
+
+            <hr>
+            <a href="#" onclick="signup()", class="btn btn-lg btn-default ">New User</a>&nbsp;&nbsp;
+          <% end %>
+
+        </div>  
+      </div>    
+    </div>
+  </div>
+</div>      

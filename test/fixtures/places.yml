@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  description: MyText
+  property_type: MyString
+  max_occupancy: MyString
+  bedrooms: MyString
+  owner_id: 1
+
+two:
+  title: MyString
+  description: MyText
+  property_type: MyString
+  max_occupancy: MyString
+  bedrooms: MyString
+  owner_id: 1
