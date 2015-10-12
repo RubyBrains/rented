@@ -195,15 +195,33 @@ ul li{
 
 	    <div id="dashboard">
 	    	<div>
-	    	<%= link_to "Advance Search", new_search_path, class: "btn btn-lg btn-danger" %>
+        
+	    	  <%= link_to "Advanced Search", new_search_path, class: "btn btn-danger btn-lg" %>
 	    	</div>
 		    <div id="flatSearched">
-			    <% @places.each do |place| %>
-			        <div class="flatBox">
-			          <p><%= place.title %></p>
-			          <p><%= place.description %></p>
-			        </div>
-			    <% end %>  
+          <% if @places.empty? %>
+            <h1>Sorry! No results found.</h1>
+          <% else %>  
+  			    <% @places.each do |place| %>
+  			        <div class="flatBox">
+                  <div>
+                    <% if place.place_images.first %>
+                      <p><%= link_to image_tag(place.place_images.first.photo.url(:thumb)), place_path(place) %></p>
+                    <% end %>  
+    			        </div>
+                  <div>
+                    <p style="text-align: center;">
+                      <p><%= place.title %></p>
+                      <p><%= place.description.truncate(14) %></p>
+                      <p><%= link_to "Show", place_path(place) %>
+                      <%= link_to "Edit", edit_place_path(place) %>
+                      <%= link_to "Delete", place, data: { confirm: "Are you sure?" },method: :delete
+                      %></p>
+                    </p>
+                  </div>
+                </div>  
+  			    <% end %>
+          <% end %>    
 		    </div>
 	      <div id="map" style=""></div>
 	    </div>

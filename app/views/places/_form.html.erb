@@ -5,7 +5,7 @@
         <h1>Rent you Flat</h1>
 
         <hr>
-        <%= simple_form_for @place, html: { multipart: true } do |f| %>
+        <%= form_for @place, html: { multipart: true } do |f| %>
           <div>
             <% @place.errors.full_messages.each do |error| %>
               <li><%= error %></li>
@@ -113,18 +113,10 @@
             <br>
           </div>
           <br>
-          <%= f.simple_fields_for :place_images do |builder| %>
-             
-            <% if builder.object.new_record? %>
-              <p>
+            <p>
               
-              <%= builder.file_field "photos[]", multiple: true , class: "form-control" %>
-
-              </p>
-              <% end %>
-          <% end %>  
-
-          
+              <%= file_field_tag "photos[]", multiple: true , type: :file, class: "form-control" %>
+            </p>
           <br>
           <input id="submit_listing" type="submit" value="Create Listing" class="btn btn-primary float_left">
         <% end %>
